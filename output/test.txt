@@ -1,0 +1,423 @@
+你好！
+经电话沟通，该需求评估方案如下
+
+ 1、重新写一个JSP页面，实现树的动态加载，在通过URL控件引入&nbsp;
+ 1）需要提供动态根据父级节点id以及搜索条件获取子节点的接口（数据集） 
+ 2）需要提供获根据搜索条件获取初始化节点的接口（数据集）
+3）UI效果调整，比如：树的显示样式、字体大小
+ 4）宏代码控制的高亮显示
+ 
+2、JSP页面与其他的报表资源交互 ,通过postMessage方式实现&nbsp;&nbsp;
+1)查询
+组织架构表（JSP页面）增加postMessage监听方法，人资组织与成本中心映射分析表通过宏代码定义查询按钮事件调用PostMessage监听方法进行传递消息，进行组织架构树刷新
+ 2)重置
+组织架构表（JSP页面）增加postMessage监听方法，人资组织与成本中心映射分析表通过宏代码定义重置按钮事件调用PostMessage监听方法进行传递消息，进行组织架构树刷新
+ 3)点击节点刷新明细报表
+通过宏代码对明细表增加postMessage监听方法，组织架构表（JSP页面）增加树节点点击事件，调用PostMessage监听方法进行传递消息，进行明细表报表刷新
+ 
+3、落地的报表要根据实际实现方案做宏代码适配调整，宏代码的删减以及调试&nbsp;&nbsp;
+ 
+4、树功能优化
+ 
+1)缩进功能&nbsp;
+ 
+2)节点鼠标悬浮提示显示节点名称&nbsp;
+ 
+3)前三级节点分不同背景色显示
+ 
+本次需求暂时先不考虑，优先解决动态加载以及交互的功能
+ 
+预计投入工作量：11人天（包含测试联调）
+ 
+说明：
+ 
+1）该方案只能针对当前场景，其他场景不能适配。
+ 
+2）后续报表发生变更，本次定制的需求有可能会不生效。
+ 
+建议不定制
+
+
+
+另外客户也具备比较好的研发能力，希望自己进行研发，相关指导资料如下：
+
+https://wiki.smartbi.com.cn/pages/viewpage.action?pageId=51942027 扩展包开发资料&nbsp;
+https://wiki.smartbi.com.cn/pages/viewpage.action?pageId=52627935 报表宏
+https://wiki.smartbi.com.cn/pages/viewpage.action?pageId=46072528&nbsp; postMessage定义示例。
+
+------------------
+
+ 
+广州思迈特软件有限公司&nbsp; 晏康
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+Smartbi，更聪明的大数据分析软件，快速挖掘企业数据价值
+
+总部：广州市天河区高普路136号华天时代三楼
+
+官网：http://www.smartbi.com.cn
+
+邮箱：yankang@smartbi.com.cn
+
+手机：18620439349
+
+
+
+
+
+ 
+
+&nbsp;
+&nbsp;
+&nbsp;
+------------------&nbsp;Original&nbsp;------------------
+From: &nbsp;"晏康"<yankang@smartbi.com.cn&gt;;
+Date: &nbsp;Tue, Nov 3, 2020 03:14 PM
+To: &nbsp;"施超"<shichao@smartbi.com.cn&gt;; 
+Cc: &nbsp;"杨礼显"<yanglixian@smartbi.com.cn&gt;; "胡长兰"<huchanglan@smartbi.com.cn&gt;; "金翔"<jinxiang@smartbi.com.cn&gt;; "倪强强"<niqq@smartbi.com.cn&gt;; "陈鼎"<chend@smartbi.com.cn&gt;; "赵秋鹤"<zhaoqh@smartbi.com.cn&gt;; "Support"<support@smartbi.com.cn&gt;; "smartbi+id10379769"<smartbi+id10379769@support.s2.udesk.cn&gt;; "梁志恒"<liangzhiheng@smartbi.com.cn&gt;; "hexiaotong@smartbi.com.cn"<hexiaotong@smartbi.com.cn&gt;; 
+Subject: &nbsp;Re: Re: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+&nbsp;
+
+你好！
+该需求评估如下：
+需求背景：
+现场3个电子表格报表，人资组织与成本中心映射分析、人资组织与成本中心组织架构表、人资组织与成本中心映射分析-成本中心明细表。
+1、人资组织与成本中心映射分析表通过URL控件引入另外两个报表
+2、人资组织与成本中心映射分析表通过宏代码定义组织架构树节点点击事件，通过改变参数值，刷新明细表
+3、人资组织与成本中心映射分析表通过宏代码给查询、重置按钮增加点击事件，通过改变参数值，刷新组织架构表以及明细表
+如下图：
+
+
+
+需求评估方案：
+需求1：是否能改成逐级加载的模式，比如说我默认打开只是展示两级，当我点某一个二级的时候再展示这个二级下的三级，这样逐级展示是否能达到？
+需求4：一键收缩功能
+目前暂时不能满足这样的需求，可行的方案重新写一个JSP页面，实现树的动态加载，在通过URL控件引入，但是需要满足所有的联动效果，
+1）需要提供动态获取节点的接口
+2）需要进行JSP页面与其他的报表资源通信
+3）UI效果调整
+工作量比较大，而且对于这个落地的报表要根据实际实现方案做适配调整。
+如电话沟通，可适当的通过筛选，调整节点数据量规避，暂时不定制。 
+
+
+需求二：增加缩进需求
+在组织架构报表客户宏替换原有的setExpander 方法，参考宏代码如下：
+treeSpreadsheetReport.setExpander = function(span, parentSpan, collapsed) {treeSpreadsheetReport.setExpander = function(span, parentSpan, collapsed) {&nbsp; list.push(span); var hasChild = span._info.hasChild; var lastChild = span._info.lastChild; var level = span._info.level; var imageName = this.getExpanderImageName(hasChild, collapsed, lastChild); var style = 'width:20px;height:20px;vertical-align:middle;';&nbsp; var indentRight ="&nbsp; &nbsp; "//缩进; if (parentSpan)
+{ span.innerHTML = indentRight + parentSpan.innerHTML + "<img src='" + imageName + "' style='" + style + "'&gt;"; span.lastChild.previousSibling.src = this.getExpanderPrefixImageName(parentSpan._info.lastChild); }
+else { span.innerHTML = "<img src='" + imageName + "'&nbsp; style='" + style + "'&gt;"; }}
+
+
+需求三：树节点增加提示
+在组织架构报表客户宏增加如下代码，参考宏代码如下：
+treeSpreadsheetReport.initExpanders = function() {treeSpreadsheetReport.initExpanders = function() { var imgMap = {}; for (var i = this.header.fromRow; i <= this.header.toRow; i++) { var td = this.tableGrid[i][this.header.pidColumn]; if (!td) continue; var pid = null; if (this.useInnerHTML)
+{ pid = td.innerHTML || td.textContent; }
+else { pid = td.innerText || td.textContent; } var td = this.tableGrid[i][this.header.idColumn]; if (!td) continue; var id = null; if (this.useInnerHTML) { id = td.innerHTML || td.textContent; } else { id = td.innerText || td.textContent; } var map = this.treeMap[id]; var pmap = this.treeMap[pid]; var headerTd = td; if (this.header.headerColumn &gt;= 0)
+{ headerTd = this.tableGrid[i][this.header.headerColumn]; if (!headerTd) continue; }
+var collapsed = false; var hasChild = map.children.length &gt; 0; var lastChild = id == pmap.children[pmap.children.length - 1]; var img = td.ownerDocument.createElement("SPAN"); img._info = { id:id, pid:pid, hasChild:hasChild, lastChild:lastChild, level:map.level }; this.maxLevel = Math.max(this.maxLevel, map.level); this.setExpander(img, imgMap[pid], false); this.expanders.push(img); imgMap[id] = img; map.img = img; if (map.children.length &gt; 0) { img.style.cursor = "pointer"; this.spreadsheetReport.addListener(img, "click", this.doRowHeaderImgClick, this, "sheetFrameBody"); } var nodeName =headerTd.innerText ;&nbsp; &nbsp; headerTd.title =nodeName; headerTd.insertBefore(img, headerTd.firstChild); var overlap = headerTd.overlap; while (overlap) { overlap.insertBefore(img.cloneNode(true), overlap.firstChild); overlap = overlap.overlap; } }}
+
+
+
+------------------
+
+ 
+广州思迈特软件有限公司&nbsp; 晏康
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+Smartbi，更聪明的大数据分析软件，快速挖掘企业数据价值
+
+总部：广州市天河区高普路136号华天时代三楼
+
+官网：http://www.smartbi.com.cn
+
+邮箱：yankang@smartbi.com.cn
+
+手机：18620439349
+
+
+
+
+
+ 
+
+&nbsp;
+&nbsp;
+&nbsp;
+------------------ Original ------------------
+From: &nbsp;"hexiaotong@smartbi.com.cn"<hexiaotong@smartbi.com.cn&gt;;
+Date: &nbsp;Mon, Nov 2, 2020 04:12 PM
+To: &nbsp;"施超"<shichao@smartbi.com.cn&gt;; 
+Cc: &nbsp;"杨礼显"<yanglixian@smartbi.com.cn&gt;; "胡长兰"<huchanglan@smartbi.com.cn&gt;; "金翔"<jinxiang@smartbi.com.cn&gt;; "倪强强"<niqq@smartbi.com.cn&gt;; "陈鼎"<chend@smartbi.com.cn&gt;; "赵秋鹤"<zhaoqh@smartbi.com.cn&gt;; "Support"<support@smartbi.com.cn&gt;; "smartbi+id10379769"<smartbi+id10379769@support.s2.udesk.cn&gt;; "梁志恒"<liangzhiheng@smartbi.com.cn&gt;; "晏康"<yankang@smartbi.com.cn&gt;; 
+Subject: &nbsp;Re: Re: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+&nbsp;
+
+您好：
+&nbsp; &nbsp; &nbsp; &nbsp;需求已补充，由定制研发进一步处理，会尽快回复此邮件。
+ 
+ 广州思迈特软件有限公司&nbsp; 何晓彤
+
+
+
+
+
+
+，更聪明的大数据分析软件，快速挖掘企业数据价值！
+
+&nbsp;
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：hexiaotong@smartbi.com.cn
+
+手机：15814891736
+
+技术支持公众号：Smartbi技术服务号
+ &nbsp;
+发件人：&nbsp;shichao@smartbi.com.cn
+发送时间：&nbsp;2020-11-02 16:07
+收件人：&nbsp;何晓彤; 梁志恒; 晏康
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 倪强强; 陈鼎; 赵秋鹤; 思迈特; smartbi+id10379769
+主题：&nbsp;Re: Re: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+ 层级树的功能还有一点需要加进去：
+
+
+1、就是这个下拉树的结构层级的缩进距离变大，做到可以进行配置修改（修改宏也可以）；（已和晏康沟通过）
+
+
+2、有的名称显示不全，在鼠标放上去后，有一个悬浮框可以展示全的名称；（已和晏康沟通过）
+
+
+3、具备一件收缩的功能，比如说在展开的情况下，我搜索二级的时候，将二级下面的三、四、五知道末级全都收起来。
+
+
+请将这三个功能也评估在内，看是否能满足。多谢！
+ 
+
+
+ 
+广州思迈特软件有限公司&nbsp; 施 超
+
+
+
+
+
+
+&nbsp;商业智能与大数据分析产品提供商！
+
+&nbsp;
+
+北京：&nbsp;北京市海淀区中关村南大街2号数码大厦B座1102A
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：shichao@smartbi.com.cn
+
+手机：18500048612
+
+&nbsp;
+发件人：&nbsp;hexiaotong@smartbi.com.cn
+发送时间：&nbsp;2020-11-02 09:32
+收件人：&nbsp;施超
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 倪强强; 陈鼎; 赵秋鹤; Support; smartbi+id10379769; 梁志恒
+主题：&nbsp;Re: 回复: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+ 您好：
+&nbsp; &nbsp; &nbsp; &nbsp;需求已上报，对应的jira号是EPPR-40895，由定制研发进一步处理。
+ 
+ 广州思迈特软件有限公司&nbsp; 何晓彤
+
+
+
+
+
+
+，更聪明的大数据分析软件，快速挖掘企业数据价值！
+
+&nbsp;
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：hexiaotong@smartbi.com.cn
+
+手机：15814891736
+
+技术支持公众号：Smartbi技术服务号
+ &nbsp;
+发件人：&nbsp;施超
+发送时间：&nbsp;2020-10-30 19:01
+收件人：&nbsp;hexiaotong@smartbi.com.cn
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 倪强强; 陈鼎; 赵秋鹤; Support; smartbi+id10379769
+主题：&nbsp;回复:回复: 回复: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+帮我评估下工作量吧，大概有几天能完成，方便给客户提供选择
+
+--------------原始邮件--------------
+发件人："hexiaotong@smartbi.com.cn "<hexiaotong@smartbi.com.cn&gt;;
+发送时间：2020年10月30日(星期五) 晚上6:27
+收件人："施超" <shichao@smartbi.com.cn&gt;;
+抄送："杨礼显 "<yanglixian@smartbi.com.cn&gt;;"胡长兰 "<huchanglan@smartbi.com.cn&gt;;"金翔 "<jinxiang@smartbi.com.cn&gt;;"倪强强 "<niqq@smartbi.com.cn&gt;;"陈鼎 "<chend@smartbi.com.cn&gt;;"赵秋鹤 "<zhaoqh@smartbi.com.cn&gt;;"Support "<support@smartbi.com.cn&gt;;"smartbi+id10379769 "<smartbi+id10379769@support.s2.udesk.cn&gt;;
+主题：回复: 回复: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+-----------------------------------
+
+  div.FoxDiv20201030181647535925 {}  您好：
+&nbsp; &nbsp; &nbsp; &nbsp;如电话沟通，分级展开的效果是可以通过定制实现的，但是效率不一定能提高很多，跟数据有关。该实现的效果是把首次打开慢的时间花销转移到每次展开里面去，也就是说每次展开应该会比较慢的。据沟通了解，目前数据量主要集中在后面的两级，那么就会在每次点开下级时的时间也会相应增加。
+&nbsp; &nbsp; &nbsp; &nbsp;如需定制，请回复此邮件~
+
+
+&nbsp; &nbsp; &nbsp; &nbsp;感谢您的支持与配合~祝您生活愉快！
+ 
+ 广州思迈特软件有限公司&nbsp; 何晓彤
+
+
+
+
+
+
+，更聪明的大数据分析软件，快速挖掘企业数据价值！
+
+&nbsp;
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：hexiaotong@smartbi.com.cn
+
+手机：15814891736
+
+技术支持公众号：Smartbi技术服务号
+ &nbsp;
+发件人：&nbsp;shichao@smartbi.com.cn
+发送时间：&nbsp;2020-10-30 15:08
+收件人：&nbsp;何晓彤
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 倪强强; 陈鼎; 赵秋鹤; Support; smartbi+id10379769
+主题：&nbsp;回复: 回复: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+ 你好：
+
+
+那是否能改成逐级加载的模式，比如说我默认打开只是展示两级，当我点某一个二级的时候再展示这个二级下的三级，这样逐级展示是否能达到？
+ 
+
+
+ 
+广州思迈特软件有限公司&nbsp; 施 超
+
+
+
+
+
+
+&nbsp;商业智能与大数据分析产品提供商！
+
+&nbsp;
+
+北京：&nbsp;北京市海淀区中关村南大街2号数码大厦B座1102A
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：shichao@smartbi.com.cn
+
+手机：18500048612
+
+&nbsp;
+发件人：&nbsp;hexiaotong@smartbi.com.cn
+发送时间：&nbsp;2020-10-30 11:12
+收件人：&nbsp;施超
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 施超; 倪强强; 陈鼎; 赵秋鹤; Support; smartbi+id10379769
+主题：&nbsp;回复: 【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+ 您好：
+&nbsp; &nbsp; &nbsp; &nbsp;依据您的反馈，我们电子表格在浏览器中是通过html5展示的，由于目前数据量太大，当脚本很大的时候，对浏览器渲染的压力也会很大的。
+&nbsp; &nbsp; &nbsp; &nbsp;建议可以在电子表格中使用参数，在参数中增加默认值去筛选数据，使页面在打开时不会一次性加载过多数据，缓解浏览器渲染压力。
+
+
+&nbsp; &nbsp; &nbsp; &nbsp;感谢您的支持与配合~祝您生活愉快！
+ 
+ 广州思迈特软件有限公司&nbsp; 何晓彤
+
+
+
+
+
+
+，更聪明的大数据分析软件，快速挖掘企业数据价值！
+
+&nbsp;
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：hexiaotong@smartbi.com.cn
+
+手机：15814891736
+
+技术支持公众号：Smartbi技术服务号
+ &nbsp;
+发件人：&nbsp;shichao@smartbi.com.cn
+发送时间：&nbsp;2020-10-30 10:45
+收件人：&nbsp;思迈特
+抄送：&nbsp;杨礼显; 胡长兰; 金翔; 施超; 倪强强; 陈鼎; 赵秋鹤
+主题：&nbsp;【博望华科-国网冀北供应链运营平台建设大数据分析软件采购项目】树形结构响应时间太长
+
+
+ support：
+
+
+你好：
+
+
+这边有一个电子表格层数的报表，有5000多条数据，查询数据很快，但是加载的时间有几分钟，有的时候浏览器直接加载崩溃了，这个有没有一个什么好的方式去解决。
+
+
+关键是这个树形结构的报表其他的样式都替代不了。
+
+
+请提供一下解决方案，谢谢！
+
+ 
+
+
+ 
+广州思迈特软件有限公司&nbsp; 施 超
+
+
+
+
+
+
+&nbsp;商业智能与大数据分析产品提供商！
+
+&nbsp;
+
+北京：&nbsp;北京市海淀区中关村南大街2号数码大厦B座1102A
+
+总部：广州市天河区高普路华天时代大厦305室
+
+官网：http://www.smartbi.com.cn
+
+邮箱：shichao@smartbi.com.cn
+
+手机：18500048612
