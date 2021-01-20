@@ -8,7 +8,8 @@ from email.parser import Parser
 from email.header import decode_header
 from email.utils import parseaddr
 import glob
-
+import re
+from tqdm import trange
 def decode_str(s):
     value, charset = decode_header(s)[0]
     if charset:
@@ -39,7 +40,6 @@ def get_content(msg):
         if charset:
             try:
                 content = part.get_payload(decode=True).decode(charset,errors='ignore')
-            #这里遇到了几种由广告等不满足需求的邮件遇到的错误，直接跳过了
             except AttributeError:
                 print('type error')
             except UnicodeDecodeError:
@@ -57,32 +57,41 @@ def get_header(msg):
             #文章的标题有专门的处理方法
             if header == 'Subject':
                 value = decode_str(value)
-                if "挖掘" in value:
-                    ISMINING = True
             elif header == "Date":
                 value = str(decode_str(value))
             elif header == "Cc":
                 value = str(decode_str(value))
-                if "挖掘" in value:
-                    ISMINING = True
             elif header in ['From','To']:
             #地址也有专门的处理方法
                 hdr, addr = parseaddr(value)
                 value = decode_str(addr)
-            res += header + ': ' + value + '\n'
-    return res, ISMINING
+            try:
+                res += header + ': ' + value + '\n'
+            except TypeError:
+                continue
+    return res
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    paths = glob.glob(r'raw_emails/*.eml')
-    for i in range(len(paths)):
+    paths = glob.glob(r'raw_emails\*.eml')
+    for i in trange(30):
+        if '(1)' in paths[i]:
+            continue
+        newFileName = re.sub(".eml$",".txt",paths[i])
+        newFileName = re.sub(r"raw_emails","emails",newFileName)
         with codecs.open(paths[i], "r", encoding='utf-8', errors='ignore') as f:
             text =f.read()
             msg = Parser().parsestr(text)
-            header,ISMINING = get_header(msg)
+            header = get_header(msg)
             msg_content = get_content(msg)
+            if not header:
+                header = ""
+            if not msg_content:
+
+                msg_content = ""
             print(msg_content)
-            f = codecs.open("emails/email"+str(i)+".txt", "w", "utf-8")
+            msg_content = header + msg_content
+            f = codecs.open(newFileName, "w", "utf-8")
             f.write(msg_content)
             f.close()

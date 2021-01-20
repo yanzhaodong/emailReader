@@ -1,0 +1,36 @@
+{
+    "name":"python_classify_email",
+    "alias":"python识别挖掘邮件",
+    "configs":[
+        {
+            "name":"datasetRatio",
+            "lable":"数据集占比",
+            "type":"double",
+            "value":0.7
+        }
+    ],
+    "inputs":[
+        {
+            "order":0,
+            "type":[
+                "DATASET"
+            ]
+        }
+    ],
+    "outputs":[
+        {
+            "order":0,
+            "type":[
+                "DATASET"
+            ]
+        },
+        {
+            "order":1,
+            "type":[
+                "DATASET"
+            ]
+        }
+    ],
+    "type":"PYTHON",
+    "path":"/自定义模块"
+}
