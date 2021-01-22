@@ -8,6 +8,14 @@ from tqdm import trange
 import sys
 import codecs
 SUPPORT = True
+filters = ["快速挖掘企业","数据挖掘部署","挖掘安装","掘及etl的安装","数据挖掘引擎","etl工程","若有使用数据挖掘功能",
+          "数挖引擎一起更新","etl[a-z]","getlogger","interpretloop"]
+oneToZeroFiter = ["不含挖掘也可","包含查询、报表、自助分析、仪表盘、移动应用、分析报告、数据挖掘等模块",
+                  "具有spreadsheet（报表）、dashboard（仪表盘）、xquery（自助分析）、analysis（多维分析）、mobile（移动应用）、office（分析报告）、mining（数据挖掘）等全面的功能",
+                  "但缺乏分析报告、数据挖掘等功能","数据挖掘 挖掘能力（算法） 支持分类、聚类、神经网络、关联性分析、时间序列预测、探索分析等几百种算法",
+                    "数据挖掘版（smartmining）：包含统计分析和机器学习的算法工具包","数据挖掘根据数据处理能力分为三个子产品：敏捷挖掘桌面版",
+                  ]
+potentialFilter = ["想要体验eagle产品包含数据挖掘模块在内","请从以下链接下载带数据挖掘的版本"]
 
 def get_email_tag(emails):
     for email in emails:
@@ -16,17 +24,9 @@ def get_email_tag(emails):
         cc = email.get("cc", "")
         to = email.get("to", "")
         text = sub + '------'+cc + '------'+to+content
-        text = re.sub("快速挖掘企业","",text)
-        text = re.sub("数据挖掘部署", "", text)
-        text = re.sub("挖掘安装", "", text)
-        text = re.sub("挖掘及etl的安装", "", text)
-        text = re.sub("数据挖掘引擎", "", text)
-        text = re.sub("etl工程", "", text)
-        text = re.sub("若有使用数据挖掘功能", "", text)
-        text = re.sub("数挖引擎一起更新", "", text)
-        text = re.sub("interpretloop", "", text)
-        text = re.sub("getlogger", "", text)
-        text = re.sub("etl^\w", "", text)
+        for seg in filters:
+            text = re.sub(seg,"",text)
+        text = re.sub(r"etl[a-z]","",text)
 
         if get_tag(text) or 'mining' in cc or 'mining' in sub:
         # if "挖掘" in sub or "ETL" in sub or \
@@ -153,10 +153,13 @@ def print_email(structEmails):
             print(k+": "+v)
     return
 
+
 def get_tag(line):
     if "挖掘" in line or "etl" in line or "数挖" in line or "mining" in line:
         return True
     return False
+
+
 def find_seg(text):
     for segment in ["快速挖掘企业", "数据挖掘部署", "挖掘安装", "挖掘及etl的安装", "数据挖掘引擎", "etl工程", "若有使用数据挖掘功能"
         , "数挖引擎一起更新", "interpretloop", "getlogger"]:
@@ -164,9 +167,20 @@ def find_seg(text):
             return True
     return False
 
-if __name__ == '__main__':
-    BINum = 30   #最大获取的BI样本数
-    confusionNum = 10
+
+def get_subject(emails):
+    for email in emails:
+        if 'subject' in email:
+            return email['subject']
+    return ""
+
+def get_header_info(emails):
+    for email in emails:
+        if 'subject' in email and 'from' in email and 'to' in email:
+            return email['subject'],email['from'],email['to']
+    return "","",""
+
+def tempTarget(num):
     paths = glob.glob(r'emails\*.txt')
     n = len(paths)
     arr = []
@@ -175,18 +189,39 @@ if __name__ == '__main__':
         info,text = parse_email(data)
         if "support" in text:
             tag = get_email_tag(info)
+            if tag == 0:
+                arr.append([text, get_email_tag(info)])
+    df = pd.DataFrame(arr, index=list(range(len(arr))), columns=['email', 'tags'])
+    pos_df = pd.read_csv("output/output.csv")
+    res = pd.concat([df,pos_df],keys=['email', 'tags'])
+    res.to_csv("output/conc_output.csv", encoding="utf-8", index=False)
+    return
 
-            BINum += (int(tag) - 1)
-            if BINum < 0 and tag == 0:
-                continue
-            if tag == 0 and find_seg(text):
-                confusionNum -= 1
-                BINum += 1
-                if confusionNum < 0:
-                    continue
 
-            arr.append([text, get_email_tag(info)])
-
-    arr = np.asarray(arr,dtype="str")
-    df = pd.DataFrame(arr, index=list(range(arr.shape[0])),columns=['email','tags'])
-    df.to_csv("output/output.csv", encoding = "utf-8", index=False)
+if __name__ == '__main__':
+    # BINum = 30   #最大获取的BI样本数
+    # confusionNum = 10
+    # paths = glob.glob(r'emails\*.txt')
+    # n = len(paths)
+    # arr = []
+    # for i in trange(n):
+    #     data = get_data(paths[i])
+    #     info,text = parse_email(data)
+    #     if "support" in text:
+    #         tag = get_email_tag(info)
+    #
+    #         BINum += (int(tag) - 1)
+    #         if BINum < 0 and tag == 0:
+    #             continue
+    #         if tag == 0 and find_seg(text):
+    #             confusionNum -= 1
+    #             BINum += 1
+    #             if confusionNum < 0:
+    #                 continue
+    #         sub,sender,receiver = get_header_info(info)
+    #         arr.append([text, get_email_tag(info), sub, sender, receiver])
+    #
+    #
+    # df = pd.DataFrame(arr, index=list(range(len(arr))), columns=['email', 'tags', 'subject','sender', 'receiver'])
+    # df.to_csv("output/output.csv", encoding = "utf-8", index=False)
+    tempTarget(1200)
